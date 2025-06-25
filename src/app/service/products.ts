@@ -8,7 +8,7 @@ import { Product } from '../common/product';
   providedIn: 'root'
 })
 export class Products {
-  private baseurl = "http://localhost:8080/product"; // Or "/product" if using proxy
+  private baseurl = "http://localhost:8080/product?size=100"; // by default spring rest only takes 20 items at a page if we want to include more then we can do like this size=no
 
   constructor(private httpClient: HttpClient) {}
 
