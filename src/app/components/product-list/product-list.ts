@@ -19,11 +19,22 @@ export class ProductList implements OnInit {
     
      this.route.paramMap.subscribe(()=>{
       this.listProducts();
-     })
+     });
   }
+
+
 listProducts(){
-  const hasCategoryId:boolean=this.route.snapshot.paramMap.has('id')
-  this.product.getProductList().subscribe(
+  // check if the id is available
+  const hasCategoryId:boolean=this.route.snapshot.paramMap.has('id');
+if(hasCategoryId){
+  //get the "id " param string, convert string  to a number using + symbol
+ const categoryIdParam = this.route.snapshot.paramMap.get('id');
+      this.currentCategoryId = categoryIdParam ? +categoryIdParam : 0
+}
+else{
+
+}
+  this.product.getProductList(this.currentCategoryId).subscribe(
     data=>{
       this.products=data;
     }

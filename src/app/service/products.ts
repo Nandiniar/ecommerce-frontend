@@ -8,13 +8,15 @@ import { Product } from '../common/product';
   providedIn: 'root'
 })
 export class Products {
-  private baseurl = "http://localhost:8080/product?size=100"; // by default spring rest only takes 20 items at a page if we want to include more then we can do like this size=no
+  private baseurl = "http://localhost:8080/product"; // by default spring rest only takes 20 items at a page if we want to include more then we can do like this size=no
 
   constructor(private httpClient: HttpClient) {}
 
-  getProductList(): Observable<Product[]> {
-    console.log('Fetching from URL:', this.baseurl); // Debug URL
-    return this.httpClient.get<GetResponse>(this.baseurl).pipe(
+  getProductList(thecategoryid:number): Observable<Product[]> {
+   
+    const searchurl=`${this.baseurl}/search/findByCategoryId?id=${thecategoryid}`;
+      console.log('Fetching from URL:', searchurl); 
+    return this.httpClient.get<GetResponse>(searchurl).pipe(
       map(response => {
         console.log('Raw response:', response); // Debug response
         return response._embedded.product;
